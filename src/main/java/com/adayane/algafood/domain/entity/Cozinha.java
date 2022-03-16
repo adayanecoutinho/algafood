@@ -1,10 +1,12 @@
 package com.adayane.algafood.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonRootName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 
+@JsonRootName("cozinha")
 @Entity
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
