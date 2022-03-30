@@ -1,4 +1,9 @@
 package com.adayane.algafood.domain.repository;
 
-public interface EstadoRepository {
+import com.adayane.algafood.domain.entity.Estado;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface EstadoRepository extends JpaRepository<Estado,Long> {
 }

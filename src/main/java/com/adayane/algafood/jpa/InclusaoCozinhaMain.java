@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 public class InclusaoCozinhaMain {
 
     public static void main(String[] args) {
-
         ApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
                 .web(WebApplicationType.NONE)
                 .run(args);

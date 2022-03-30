@@ -1,10 +1,10 @@
 package com.adayane.algafood.api.controller;
 
+import com.adayane.algafood.domain.entity.Cidade;
 import com.adayane.algafood.domain.entity.Cozinha;
 import com.adayane.algafood.domain.exception.EntidadeEmUsoException;
 import com.adayane.algafood.domain.exception.EntidadeNaoEncontradaException;
-import com.adayane.algafood.domain.repository.CozinhaRepository;
-import com.adayane.algafood.domain.service.CozinhaService;
+import com.adayane.algafood.domain.service.CidadeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,21 +14,21 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/cozinhas")//, produces = MediaType.APPLICATION_JSON_VALUE)
-public class CozinhaController {
+@RequestMapping(value = "/cidades")
+public class CidadeController {
 
     @Autowired
-    private CozinhaService cozinhaService;
+    private CidadeService cidadeService;
 
     @GetMapping()
-    public List<Cozinha> listarTodos(){
-        return cozinhaService.listarTodos();
+    public List<Cidade> listarTodos(){
+        return cidadeService.listarTodos();
     }
 
-    @GetMapping("/{cozinhaId}")
-    public ResponseEntity<?> listar(@PathVariable Long cozinhaId){
+    @GetMapping("/{cidadeId}")
+    public ResponseEntity<?> listar(@PathVariable Long cidadeId){
         try{
-            Optional<Cozinha> cozinha = cozinhaService.listar(cozinhaId);
+            Optional<Cidade> cozinha = cidadeService.listar(cidadeId);
             return ResponseEntity.ok(cozinha.get());
         }catch (EntidadeNaoEncontradaException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
@@ -37,24 +37,24 @@ public class CozinhaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Cozinha adicionar(@RequestBody Cozinha cozinha){
-        return cozinhaService.salvar(cozinha);
+    public Cidade adicionar(@RequestBody Cidade cidade){
+        return cidadeService.salvar(cidade);
     }
 
-    @PutMapping("/{cozinhaId}")
-    public ResponseEntity<?> atualizar(@PathVariable Long cozinhaId, @RequestBody Cozinha cozinhaNew){
+    @PutMapping("/{cidadeId}")
+    public ResponseEntity<?> atualizar(@PathVariable Long cidadeId, @RequestBody Cidade cidadeNew){
         try{
-            Optional<Cozinha> cozinha = Optional.ofNullable(cozinhaService.atualizar(cozinhaId, cozinhaNew));
-            return ResponseEntity.ok(cozinha.get());
+            Optional<Cidade> cidade = Optional.ofNullable(cidadeService.atualizar(cidadeId, cidadeNew));
+            return ResponseEntity.ok(cidade.get());
         }catch (EntidadeNaoEncontradaException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
-    @DeleteMapping("/{cozinhaId}")
-    public ResponseEntity<?> deletar(@PathVariable Long cozinhaId){
+    @DeleteMapping("/{cidadeId}")
+    public ResponseEntity<?> deletar(@PathVariable Long cidadeId){
         try{
-            cozinhaService.excluir(cozinhaId);
+            cidadeService.excluir(cidadeId);
             return ResponseEntity.noContent().build();
 
         }catch (EntidadeNaoEncontradaException e){
@@ -64,5 +64,4 @@ public class CozinhaController {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
-
 }
